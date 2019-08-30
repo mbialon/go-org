@@ -7,6 +7,8 @@ import (
 )
 
 type Clock struct {
+	Content string
+
 	Start    time.Time
 	End      time.Time
 	Duration time.Duration
@@ -49,7 +51,8 @@ func (d *Document) parseClock(i int, parentStop stopFn) (int, Node) {
 		return 0, nil
 	}
 	return 1, Clock{
-		Start: start.(Timestamp).Time,
-		End:   end.(Timestamp).Time,
+		Content: s,
+		Start:   start.(Timestamp).Time,
+		End:     end.(Timestamp).Time,
 	}
 }
