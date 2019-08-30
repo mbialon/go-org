@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"regexp"
 	"time"
-
-	"github.com/niklasfasching/go-org/org"
 )
 
 type Clock struct {
@@ -44,7 +42,7 @@ func (d *Document) parseClock(i int, parentStop stopFn) (int, Node) {
 		return 0, nil
 	}
 	return 1, Clock{
-		Start: start.(org.Timestamp).Time,
-		End:   end.(org.Timestamp).Time,
+		Start: start.(Timestamp).Time,
+		End:   end.(Timestamp).Time,
 	}
 }
