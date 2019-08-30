@@ -29,15 +29,22 @@ func lexClock(line string) (token, bool) {
 }
 
 func (d *Document) parseClock(i int, parentStop stopFn) (int, Node) {
-	m := clockContentRegexp.FindStringSubmatch(d.tokens[i].content)
+	s := d.tokens[i].content
+	d.Log.Printf("CLOCK, parse: %s", s)
+	m := clockContentRegexp.FindStringSubmatch(s)
+	d.Log.Printf("CLOCK, matches: %v", m)
 	if m == nil {
 		return 0, nil
 	}
+	d.Log.Printf("CLOCK, parse T1: %s", m[1])
 	_, start := d.parseTimestamp(m[1], 0)
+	d.Log.Printf("CLOCK, T1: %v", start)
 	if start == nil {
 		return 0, nil
 	}
+	d.Log.Printf("CLOCK, parse T2: %s", m[2])
 	_, end := d.parseTimestamp(m[2], 0)
+	d.Log.Printf("CLOCK, T2: %v", end)
 	if end == nil {
 		return 0, nil
 	}
