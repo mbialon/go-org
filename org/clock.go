@@ -6,6 +6,8 @@ import (
 )
 
 type Clock struct {
+	Content string
+
 	Start    string
 	End      string
 	Duration string
@@ -25,6 +27,5 @@ func lexClock(line string) (token, bool) {
 }
 
 func (d *Document) parseClock(i int, parentStop stopFn) (int, Node) {
-	//_ := d.tokens[i].content
-	return 1, Clock{}
+	return 1, Clock{Content: d.tokens[i].content}
 }
