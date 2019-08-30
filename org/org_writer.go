@@ -100,7 +100,7 @@ func (w *OrgWriter) WriteDrawer(d Drawer) {
 	w.WriteString(w.indent + ":END:\n")
 }
 
-func (w *OrgWriter) WriteClock() {}
+func (w *OrgWriter) WriteClock(Clock) {}
 
 func (w *OrgWriter) WritePropertyDrawer(d PropertyDrawer) {
 	w.WriteString(":PROPERTIES:\n")
