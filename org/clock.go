@@ -3,21 +3,25 @@ package org
 import (
 	"fmt"
 	"regexp"
+	"time"
+
+	"github.com/niklasfasching/go-org/org"
 )
 
 type Clock struct {
-	Content string
-
-	Start    string
-	End      string
-	Duration string
+	Start    time.Time
+	End      time.Time
+	Duration time.Duration
 }
 
 func (c Clock) String() string {
 	return fmt.Sprintf("CLOCK, start: %s, end: %s, duration: %s", c.Start, c.End, c.Duration)
 }
 
-var clockRegexp = regexp.MustCompile(`^(\s*)CLOCK: (.*)`)
+var (
+	clockRegexp        = regexp.MustCompile(`^(\s*)CLOCK: (.*)`)
+	clockContentRegexp = regexp.MustCompile(`\[(.+)]--\[(.+)]\s*=>(.+)`)
+)
 
 func lexClock(line string) (token, bool) {
 	if m := clockRegexp.FindStringSubmatch(line); m != nil {
@@ -27,5 +31,20 @@ func lexClock(line string) (token, bool) {
 }
 
 func (d *Document) parseClock(i int, parentStop stopFn) (int, Node) {
-	return 1, Clock{Content: d.tokens[i].content}
+	m := clockContentRegexp.FindStringSubmatch(d.tokens[i].content)
+	if m == nil {
+		return 0, nil
+	}
+	_, start := d.parseTimestamp(m[1], 0)
+	if start == nil {
+		return 0, nil
+	}
+	_, end := d.parseTimestamp(m[2], 0)
+	if end == nil {
+		return 0, nil
+	}
+	return 1, Clock{
+		Start: start.(org.Timestamp).Time,
+		End:   end.(org.Timestamp).Time,
+	}
 }
