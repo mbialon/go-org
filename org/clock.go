@@ -17,7 +17,7 @@ func (c Clock) String() string {
 }
 
 var (
-	clockRegexp        = regexp.MustCompile(`^(\s*)CLOCK: (.*)`)
+	clockRegexp        = regexp.MustCompile(`^(\s*)CLOCK: (.*)$`)
 	clockContentRegexp = regexp.MustCompile(`\[(.+)]--\[(.+)]\s*=>(.+)`)
 )
 
