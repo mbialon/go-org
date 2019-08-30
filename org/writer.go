@@ -16,7 +16,7 @@ type Writer interface {
 	WriteBlock(Block)
 	WriteExample(Example)
 	WriteDrawer(Drawer)
-	WriteClock()
+	WriteClock(Clock)
 	WritePropertyDrawer(PropertyDrawer)
 	WriteList(List)
 	WriteListItem(ListItem)
@@ -86,6 +86,8 @@ func WriteNodes(w Writer, nodes ...Node) {
 			w.WriteFootnoteLink(n)
 		case FootnoteDefinition:
 			w.WriteFootnoteDefinition(n)
+		case Clock:
+			w.WriteClock(n)
 		default:
 			if n != nil {
 				panic(fmt.Sprintf("bad node %#v", n))
