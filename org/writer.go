@@ -16,6 +16,7 @@ type Writer interface {
 	WriteBlock(Block)
 	WriteExample(Example)
 	WriteDrawer(Drawer)
+	WriteClock()
 	WritePropertyDrawer(PropertyDrawer)
 	WriteList(List)
 	WriteListItem(ListItem)

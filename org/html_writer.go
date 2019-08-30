@@ -129,6 +129,8 @@ func (w *HTMLWriter) WriteDrawer(d Drawer) {
 	WriteNodes(w, d.Children...)
 }
 
+func (w *HTMLWriter) WriteClock() {}
+
 func (w *HTMLWriter) WriteKeyword(k Keyword) {
 	if k.Key == "HTML" {
 		w.WriteString(k.Value + "\n")
